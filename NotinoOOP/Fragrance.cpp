@@ -7,7 +7,7 @@ unsigned int Fragrance::fregranceID = 1;
 Fragrance::Fragrance(const std::string& inpName, double inpPrice, FregranceFamily inpFFamily, 
 					unsigned int inpQuntity, Brand inpBrand, std::vector<Review> inpCurrReviews)
 					: name(inpName), price(inpPrice), currFFamily(std::move(inpFFamily)), quantity(inpQuntity),
-					 perfumeBrand(std::move(inpBrand)), currReviews(std::move(inpCurrReviews))
+					 perfumeBrand(inpBrand), currReviews(inpCurrReviews)
 {
 	if (price < MIN_PRICE)
 	{
@@ -87,32 +87,74 @@ void Fragrance::addReview(const Review& addingReview)
 
 void Fragrance::removeReviewByID(unsigned int RIDToBeRemoved)
 {
-	if (RIDToBeRemoved >= currReviews.size())
-	{
-		throw std::out_of_range("The inputed ID is more than the current count of reviews for the perfume");
-	}
 
 	auto findIt = std::erase_if(currReviews, [RIDToBeRemoved](const Review& currReview)
 		{return currReview.getReviewID() == RIDToBeRemoved; });
 
-	if (findIt == currReviews.size())
-	{
-		throw std::logic_error("The inputed review was not found");
-	}
-	else
-	{
-		std::println("The review has successfully been removed from the list");
-	}
+	
 }
 
 void Fragrance::printFregrance() const
 {
 	std::println("FregranceID: {}, name: {}, price: {} euros, fregrance family - {}, quantity: {}, brand -{} "
-				, currFregranceID, name, price, currFFamily, quantity, perfumeBrand);
+				, currFregranceID, name, price, getFFamilyAsString(currFFamily), quantity, getBrandAsString(perfumeBrand));
 	
 	std::println("Current reviews for the perfume: ");
 	for (const auto& currR : currReviews)
 	{
 		currR.printReview();
+	}
+}
+
+const std::string Fragrance::getFFamilyAsString(const FregranceFamily& currFF) const
+{
+	switch (currFF)
+	{
+	case FregranceFamily::FRUITY :
+		return	"Fruity";
+	case FregranceFamily::FLORAL:
+		return "Floral";
+	case FregranceFamily::AROMATIC:
+		return "Aromatic";
+	case FregranceFamily::GREEN:
+		return "Green";
+	case FregranceFamily::WOODS :
+		return "Woods";
+	case FregranceFamily::CITRUS:
+		return "Citrus";
+	case FregranceFamily::AMBER:
+		return "Amber";
+	case FregranceFamily::WOODY_AMBER:
+		return "Woody amber";
+	case FregranceFamily::SOFT_AMBER:
+		return "Soft amber";
+	default: return "Not found";
+	}
+}
+
+const std::string Fragrance::getBrandAsString(const Brand& currB) const
+{
+	switch (currB)
+	{
+	case Brand::AlHaramain:
+		return "AlHaramain";
+	case Brand::BillieEilish:
+		return "BillieEilish";
+	case Brand::Chloe:
+		return "Chloe";
+	case Brand::Creed:
+		return "Creed";
+	case Brand::Dior:
+		return "Dior";
+	case Brand::Zadig_Voltaire:
+		return "Zadig_Voltaire";
+	case Brand::Mugler:
+		return "Mugler";
+	case Brand::Valentino:
+		return "Valentino";
+	case Brand::Xerjoff:
+		return "Xerjoff";
+	default :
+		return "The brand is not found";
 	}
 }

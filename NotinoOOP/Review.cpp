@@ -44,5 +44,5 @@ const std::string& Review::getComment() const
 void Review::printReview() const
 {
 	std::println("Review ID {}, written by {} for {} perfume  with rating {} and the comment is: {}",
-				currReviewID, authorName, perfumeName, comment);
+				currReviewID, authorName, perfumeName,rating, comment);
 }
