@@ -1,19 +1,21 @@
 #pragma once
-
-constexpr int minPercantage = 0;
+#include "Brand.h"
+constexpr double minPercantage = 0;
+constexpr double maxPercantage = 100;
 class Discount
 {
 	private:
-		double percantage;
 		static unsigned int ID;
 		unsigned int currDID;
 
+	protected:
+		double disPercantage;
+
 	public:
-		Discount(double inpPercantage);
+		Discount(double inpDisPercantage);
 		virtual ~Discount() = default;
-		virtual void applyDiscount() = 0;
+		virtual double applyDiscount(double initPrice, Brand brand)const = 0;
 		
-		double getPercantage() const;
 		unsigned int getCurrDID() const;
 
 };
