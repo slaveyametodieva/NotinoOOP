@@ -27,7 +27,7 @@ public:
 	double getPPrice() const;
 	const FregranceFamily getFFamily() const;
 	unsigned int getQuantity() const;
-	const Brand getBrand() const;
+	 Brand getBrand() const;
 
 	void addQuantity(unsigned int inpQuantity);
 	void removeQuantity(unsigned int inpQuantity);
@@ -37,5 +37,7 @@ public:
 	void printFregrance() const;
 	const std::string getFFamilyAsString(const FregranceFamily& currFF) const;
 	const std::string getBrandAsString(const Brand& currB) const;
+
+	std::string getRAuthorName(unsigned int reviewID) const;
 };
 

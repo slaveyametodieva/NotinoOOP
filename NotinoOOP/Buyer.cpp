@@ -83,7 +83,7 @@ void Buyer::viewPurchase() const
 			else if (p.status == PurchaseStatus::DELIVERED) statusStr = "DELIVERED";
 			else statusStr = "CANCELED";
 
-			tln("Order ID: {} | Status: {} | Total Price: {} euros", p.purchaseID, statusStr, p.totalPrice);
+			std::println("Order ID: {} | Status: {} | Total Price: {} euros", p.purchaseID, statusStr, p.totalPrice);
 		}
 	}
 }

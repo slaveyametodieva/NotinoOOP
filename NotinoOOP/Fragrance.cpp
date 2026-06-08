@@ -6,8 +6,8 @@ unsigned int Fragrance::fregranceID = 1;
 
 Fragrance::Fragrance(const std::string& inpName, double inpPrice, FregranceFamily inpFFamily, 
 					unsigned int inpQuntity, Brand inpBrand, std::vector<Review> inpCurrReviews)
-					: name(inpName), price(inpPrice), currFFamily(std::move(inpFFamily)), quantity(inpQuntity),
-					 perfumeBrand(inpBrand), currReviews(inpCurrReviews)
+					: name(inpName), price(inpPrice), currFFamily(inpFFamily), quantity(inpQuntity),
+					 perfumeBrand(inpBrand), currReviews(std::move(inpCurrReviews))
 {
 	if (price < MIN_PRICE)
 	{
@@ -60,7 +60,7 @@ unsigned int Fragrance::getQuantity() const
 	return quantity;
 }
 
-const Brand Fragrance::getBrand() const
+ Brand Fragrance::getBrand() const
 {
 	return perfumeBrand;
 }
@@ -88,7 +88,7 @@ void Fragrance::addReview(const Review& addingReview)
 void Fragrance::removeReviewByID(unsigned int RIDToBeRemoved)
 {
 
-	auto findIt = std::erase_if(currReviews, [RIDToBeRemoved](const Review& currReview)
+		std::erase_if(currReviews, [RIDToBeRemoved](const Review& currReview)
 		{return currReview.getReviewID() == RIDToBeRemoved; });
 
 	
@@ -154,7 +154,24 @@ const std::string Fragrance::getBrandAsString(const Brand& currB) const
 		return "Valentino";
 	case Brand::Xerjoff:
 		return "Xerjoff";
+	case Brand::YvesSauintLaurent:
+		return "YvesSauintLaurent";
+	case Brand::JeanPaulGultier:
+		return "JeanPaulGultier";
 	default :
 		return "The brand is not found";
 	}
+}
+
+std::string Fragrance::getRAuthorName(unsigned int reviewID) const
+{
+	auto foundIt = std::find_if(currReviews.begin(), currReviews.end(), [reviewID](const Review& currR)
+		{return currR.getReviewID() == reviewID; });
+
+	if (foundIt != currReviews.end())
+	{
+		return foundIt->getAuthorName();
+	}
+
+	return "";
 }

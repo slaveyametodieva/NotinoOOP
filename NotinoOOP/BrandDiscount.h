@@ -1,4 +1,4 @@
-#pragma 
+#pragma once
 #include "Discount.h"
 #include "Fragrance.h"
 class BrandDiscount : public Discount

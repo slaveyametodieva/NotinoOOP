@@ -1,7 +1,7 @@
 #pragma once
 #include "Discount.h"
 
-constexpr int minBonus = 0.0;
+constexpr double minBonus = 0.0;
 
 class BonusDiscount : public Discount
 {
