@@ -31,5 +31,9 @@ class Buyer : public User
 		void viewPurchase() const;
 		void viewCart() const;
 
+		bool deliverPurchase(unsigned int purchaseID);
+		void recommend(const std::vector<Fragrance>& perfumes) const;
+		void checkout();
+		void cancelPurchase(unsigned int purchaseID);
 };
 

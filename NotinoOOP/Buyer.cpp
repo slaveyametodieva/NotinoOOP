@@ -3,6 +3,8 @@
 #include <print>
 #include <algorithm>
 #include <iostream>
+#include <random>
+
 Buyer::Buyer(const std::string& inpUsername, const std::string& inpPassword, double initialBalance):
 	User(inpUsername, inpPassword)
 {
@@ -104,4 +106,175 @@ void Buyer::viewCart() const
 			std::cout << '\n';
 		}
 	}
+}
+
+bool Buyer::deliverPurchase(unsigned int purchaseID)
+{
+	for (auto& currP : purchases)
+	{
+		if (currP.purchaseID == purchaseID)
+		{
+			if (currP.status == PurchaseStatus::PENDING)
+			{
+				currP.status = PurchaseStatus::DELIVERED;
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+void Buyer::recommend(const std::vector<Fragrance>& perfumes) const
+{
+	if (wishlist.empty())
+	{
+		std::println("Your wishlist is empty. Add some perfumes so we can recommend you something");
+		return;
+	}
+
+	FregranceFamily favouriteFamily = wishlist[0].getFFamily();
+	int maxCount = 0;
+
+	for (size_t i = 0; i < wishlist.size(); i++)
+	{
+		int currCount = 0;
+		for (size_t j = 0; j < wishlist.size(); j++)
+		{
+			if (wishlist[i].getFFamily() == wishlist[j].getFFamily())
+			{
+				currCount++;
+			}
+		}
+
+		if (currCount > maxCount)
+		{
+			maxCount = currCount;
+			favouriteFamily = wishlist[i].getFFamily();
+		}
+	}
+
+	std::vector<Fragrance> candidates;
+
+	for (const auto& pref : perfumes)
+	{
+		if (pref.getFFamily() == favouriteFamily)
+		{
+			bool isInWishlist = false;
+			for (const auto& currW : wishlist)
+			{
+				if (currW.getPName() == pref.getPName())
+				{
+					isInWishlist = true;
+					break;
+				}
+			}
+
+			if (!isInWishlist)
+			{
+				candidates.push_back(pref);
+			}
+		}
+	}
+
+	if (candidates.empty())
+	{
+		std::println("We could not find any new recommendations for your favourite fragrance family");
+		return;
+	}
+
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::shuffle(candidates.begin(), candidates.end(), gen);
+
+	std::println("We recommend for you: ");
+	int count = 0;
+	for (const auto& currC : candidates)
+	{
+		currC.printFregrance();
+		count++;
+
+		if (count == 4)
+			break;
+	}
+	std::println("");
+}
+
+void Buyer::checkout()
+{
+	if (cart.empty())
+	{
+		std::println("The cart is currently empty");
+		return;
+	}
+
+	double totalPrice = 0;
+	for (const auto& currProduct : cart)
+	{
+		double currProdPrice = currProduct.getPPrice();
+		totalPrice += currProdPrice;
+	}
+
+	double bestPrice = totalPrice;
+	int bestDiscountIdx = -1;
+
+	for (size_t i = 0; i < discounts.size(); i++)
+	{
+		double currTotalDiscount = 0;
+		for (const auto& currProduct : cart)
+		{
+			currTotalDiscount += discounts[i]->applyDiscount(currProduct.getPPrice(), currProduct.getBrand());
+		}
+
+		if (currTotalDiscount < bestPrice)
+		{
+			bestPrice = currTotalDiscount;
+			bestDiscountIdx = i;
+		}
+	}
+
+	if (bestPrice > balance)
+	{
+		std::println("Not enough balance to pay the purchase");
+		return;
+	}
+
+	balance -= bestPrice;
+
+	Purchase newOrder;
+	newOrder.purchaseID = purchases.size() + 1;
+	newOrder.boughtPerfumes = cart;
+	newOrder.totalPrice = bestPrice;
+	newOrder.status = PurchaseStatus::PENDING;
+
+	purchases.push_back(newOrder);
+
+	if (bestDiscountIdx != -1)
+	{
+		discounts.erase(discounts.begin() + bestDiscountIdx);
+	}
+
+	cart.clear(); 
+	std::println("Purchase successful! Total price: {}", bestPrice);
+}
+
+void Buyer::cancelPurchase(unsigned int purchaseID)
+{
+	for (auto& currP : purchases)
+	{
+		if (currP.purchaseID == purchaseID)
+		{
+			if (currP.status == PurchaseStatus::PENDING)
+			{
+				currP.status = PurchaseStatus::CANCELED;
+				std::println("Purchase ID {} has been successfully canceled", purchaseID);
+			}
+			else
+			{
+				std::println("Purchase ID {} cannot be canceled because it is not pending", purchaseID);
+			}
+			return;
+		}
+	}
+
+	std::println("Purchase ID {} not found in your history", purchaseID);
 }

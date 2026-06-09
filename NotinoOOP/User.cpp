@@ -12,6 +12,16 @@ User::User(const std::string& inpUsername, const std::string& inpPassword): user
 
 }
 
+void User::incerementRemovedReviews()
+{
+	removedReviews++;
+}
+
+unsigned int User::getRemovedReviewsCount() const
+{
+	return removedReviews;
+}
+
 unsigned int User::getPersonalID() const
 {
 	return personalID;

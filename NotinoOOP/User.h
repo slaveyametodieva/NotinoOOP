@@ -9,6 +9,7 @@ class User
 		unsigned int personalID;
 		std::string username;
 		std::string password;
+		unsigned int removedReviews;
 
 	public:
 		virtual ~User() = default;
@@ -19,6 +20,9 @@ class User
 
 		bool checkPassword(const std::string& inpPassword) const;
 		virtual void help()const = 0;
+
+		void incerementRemovedReviews();
+		unsigned int getRemovedReviewsCount() const;
 
 
 };
