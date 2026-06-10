@@ -52,3 +52,12 @@ NotinoOOP/NotinoOOP.vcxproj.user
 .vs/NotinoOOP/FileContentIndex/dcb4cebf-ad9b-46c0-814a-22c28b5e7a23.vsidx
 .vs/NotinoOOP/FileContentIndex/82da82cb-c11f-4e49-a729-c4b43c50cf9d.vsidx
 .vs/NotinoOOP/FileContentIndex/a520bb7f-5b1b-48d1-9105-a0f44d1166cd.vsidx
+.vs/NotinoOOP/FileContentIndex/175a8ba4-e082-4d1d-9c92-b6972a1c0cc9.vsidx
+.vs/
+x64/
+Debug/
+Release/
+*.obj
+*.exe
+*.pdb
+*.ipch
