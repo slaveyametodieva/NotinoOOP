@@ -16,4 +16,4 @@ void CreateFragranceCommand::execute()
 	FregranceFamily f = static_cast<FregranceFamily>(familyInt);
 	admin->createFragrance(name, b, price, f, catalog);
 }
-}
+

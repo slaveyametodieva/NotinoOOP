@@ -9,7 +9,7 @@ class User
 		unsigned int personalID;
 		std::string username;
 		std::string password;
-		unsigned int removedReviews;
+		unsigned int removedReviews = 0;
 
 	public:
 		virtual ~User() = default;

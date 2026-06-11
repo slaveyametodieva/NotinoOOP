@@ -3,6 +3,7 @@
 #include "FregranceFamily.h"
 #include "Brand.h"
 #include <vector>
+#include <string>
 
 constexpr double MIN_PRICE = 40;
 class Fragrance
@@ -27,7 +28,7 @@ public:
 	double getPPrice() const;
 	const FregranceFamily getFFamily() const;
 	unsigned int getQuantity() const;
-	 Brand getBrand() const;
+	Brand getBrand() const;
 
 	void addQuantity(unsigned int inpQuantity);
 	void removeQuantity(unsigned int inpQuantity);

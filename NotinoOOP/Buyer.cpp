@@ -15,6 +15,24 @@ Buyer::Buyer(const std::string& inpUsername, const std::string& inpPassword, dou
 	balance = initialBalance;
 }
 
+void Buyer::help() const
+{
+		std::println("--- Buyer Menu Commands ---");
+		std::println("add-to-balance <amount>");
+		std::println("view-cart");
+		std::println("add-to-cart <fragrance-name>");
+		std::println("checkout");
+		std::println("recommend");
+		std::println("add-to-wishlist <fragrance-name>");
+		std::println("remove-from-wishlist <fragrance-name>");
+		std::println("remove-from-cart <fragrance-name>");
+		std::println("view-bought");
+		std::println("view-purchases");
+		std::println("cancel <purchase-id>");
+		std::println("make-review <fragrance-name> <rating> <comment>");
+		std::println("---------------------------");
+}
+
 void Buyer::addToBalance(double amount)
 {
 	if (amount < minBalance)

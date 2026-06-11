@@ -14,7 +14,6 @@ class Review
 		std::string comment;
 
 	public:
-		Review() = default;
 		Review(const std::string& inpAuthorName, const std::string& inpPerfumeName,
 			  unsigned int inpRating, const std::string& inpComment);
 
