@@ -1,50 +1,51 @@
 # 🌟 NotinoOOP - Console Fragrance Shop System
 
-Този проект представлява цялостна обектно-ориентирана конзолна система за управление на магазин за парфюми, написана на съвременен C++. Проектът симулира реална бизнес логика, включваща управление на инвентар, потребителски профили, алгоритми за препоръки и динамично изчисляване на отстъпки.
+This project is a comprehensive object-oriented console system for managing a fragrance shop, written in modern C++. The project simulates real-world business logic, including inventory management, user profiles, recommendation algorithms, and dynamic discount calculations.
 
-## 🚀 Основни функционалности
+## 🚀 Core Features
 
-Системата поддържа два основни вида потребители, всеки със свои собствени права и команди:
+The system supports two main types of users, each with their own permissions and commands:
 
-### 👤 Клиенти (Buyers)
-* **Пазаруване:** Добавяне на парфюми в количката, преглед и финализиране на поръчката (`checkout`).
-* **Смарт отстъпки:** При плащане системата автоматично изчислява и прилага най-добрата налична отстъпка за потребителя.
-* **Алгоритъм за препоръки (`recommend`):** Анализира продуктите в списъка с желания (`wishlist`) на клиента и автоматично предлага нови парфюми от същата ароматна категория.
-* **Ревюта:** Възможност за оценяване и писане на коментари за закупени парфюми.
-* **Управление на средства:** Добавяне на виртуален баланс и проследяване на историята на поръчките (в процес на изчакване, доставени или отказани).
+### 👤 Buyers
+- **Shopping:** Adding fragrances to the cart, viewing, and finalizing the order (`checkout`).
+- **Smart Discounts:** During checkout, the system automatically calculates and applies the best available discount for the user.
+- **Recommendation Algorithm (`recommend`):** Analyzes products in the client's `wishlist` and automatically suggests new fragrances from the same scent category.
+- **Reviews:** Ability to rate and write comments on purchased fragrances.
+- **Fund Management:** Adding a virtual balance and tracking order history (pending, delivered, or canceled).
 
-### 🛡️ Администратори (Admins)
-* **Управление на каталога:** Създаване на нови парфюми (с марка, ароматно семейство и цена) и добавяне на количества.
-* **Модерация:** Премахване на неподходящи ревюта.
-* **Автоматични наказания:** Ако на даден потребител му бъдат изтрити 7 ревюта, системата автоматично блокира и изтрива профила му.
-* **Доставки:** Промяна на статуса на клиентските поръчки към "Доставени".
-
----
-
-## 🧠 Използвани технологии и ООП концепции
-
-Проектът демонстрира солидно разбиране на принципите на Обектно-ориентираното програмиране (ООП) и шаблоните за дизайн:
-
-* **Command Design Pattern:** Всички потребителски действия са капсулирани в отделни команди чрез `CommandFactory` и интерфейса `ICommand`. Това прави главния цикъл на програмата изключително изчистен и лесен за надграждане.
-* **Полиморфизъм:** Използван е при работата с потребители (указатели към базовия клас `User`) и при изчисляването на отстъпките (базов клас `Discount` с виртуални методи, наследен от `BonusDiscount` и `BrandDiscount`).
-* **Управление на паметта:** Широко използване на `std::unique_ptr` за безопасно управление на жизнения цикъл на обектите и предотвратяване на изтичане на памет (memory leaks).
-* **Файлова система:** Автоматично запазване (`saveData`) и зареждане (`loadData`) на състоянието на магазина (каталог и потребители) в локални `.txt` файлове при стартиране и спиране на програмата.
-* **Модерен C++:** Използване на библиотеки като `<print>` (за `std::println`), `<random>` (за разбъркване на препоръките) и `std::erase_if` за оптимизирано търсене и изтриване на елементи.
+### 🛡️ Admins
+- **Catalog Management:** Creating new fragrances (with brand, fragrance family, and price) and adding stock quantities.
+- **Moderation:** Removing inappropriate reviews.
+- **Automatic Penalties:** If 7 reviews of a given user are deleted, the system automatically blocks and deletes their profile.
+- **Deliveries:** Changing the status of client orders to "Delivered".
 
 ---
 
-## 🛠️ Как да стартирате проекта
+## 🧠 Technologies and OOP Concepts Used
 
-1. Клонирайте хранилището на вашия компютър:
-   ```bash
-   git clone https://github.com/slaveyametodieva/NotinoOOP.git
+The project demonstrates a solid understanding of Object-Oriented Programming (OOP) principles and design patterns:
 
-   ## 🎮 Примерно изпълнение (Тестов сценарий)
+- **Command Design Pattern:** All user actions are encapsulated into separate commands via the `CommandFactory` and the `ICommand` interface. This keeps the main program loop exceptionally clean and highly scalable.
+- **Polymorphism:** Used in handling users (pointers to the base `User` class) and in calculating discounts (base `Discount` class with virtual methods, inherited by `BonusDiscount` and `BrandDiscount`).
+- **Memory Management:** Extensive use of `std::unique_ptr` for safe object lifecycle management and preventing memory leaks.
+- **File System:** Automatic saving (`saveData`) and loading (`loadData`) of the shop's state (catalog and users) into local `.txt` files upon program startup and shutdown.
+- **Modern C++:** Utilization of libraries like `<print>` (for `std::println`), `<random>` (for shuffling recommendations), and `std::erase_if` for optimized searching and element deletion.
 
-Ако искате да тествате пълната функционалност на системата веднага след компилиране, можете да въведете следните команди ред по ред в конзолата:
+---
 
-### Стъпка 1: Зареждане на магазина (Админски панел)
-При първо стартиране системата е празна. Влизаме със служебния профил, за да заредим каталога с парфюми:
+## 🛠️ How to Run the Project
+
+1. Clone the repository to your local machine:
+   
+```bash
+   git clone [https://github.com/slaveyametodieva/NotinoOOP.git](https://github.com/slaveyametodieva/NotinoOOP.git)
+
+   ## 🎮 Example Execution (Test Scenario)
+
+If you want to test the full functionality of the system right after compiling, you can enter the following commands line by line in the console:
+
+### Step 1: Loading the Shop (Admin Panel)
+On first launch, the system is empty. We log in with the admin profile to populate the fragrance catalog:
 
 ```text
 login admin admin123
@@ -55,7 +56,7 @@ add-quantity Jadore 15
 logout
 ```
 
-### Стъпка 2: Клиентски панел
+### Step 2: Client Panel:
 ```text
 register sofia pass1
 login sofia pass1
